@@ -8,14 +8,18 @@ class User {
     static hasOne = [ profile : Profile ]
     static hasMany = [ posts : Post, tags : Tag, following : User ]
     static constraints = {
-        loginId size: 3..22, unique: true, nullable: false, validator: { login, user ->
-            login != user.password }
+        loginId unique: true, nullable: false
         profile nullable: true
-        password size: 6..8, nullable: false
+        password size: 4..8, nullable: false
         homepage url: true,
                 nullable: true
-        dateCreated min: new Date(), nullable: true
+        dateCreated nullable: true
         tags()
         posts()
+    }
+
+    @Override
+    String toString() {
+        return loginId;
     }
 }
