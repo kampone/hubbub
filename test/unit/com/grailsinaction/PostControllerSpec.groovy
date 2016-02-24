@@ -3,6 +3,7 @@ package com.grailsinaction
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import spock.lang.Specification
+import spock.lang.Unroll
 
 /**
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
@@ -37,6 +38,34 @@ class PostControllerSpec extends Specification {
         model.user.posts.size() == 2
     }
 
-    void "test something"() {
+    def "Adding a valid new post to the time line"(){
+        given: "A mock post service"
+        def mockPostService = Mock(PostService)
+        1 * mockPostService.createPost(_,_) >> new Post(content: "Mock Post")
+        controller.postService = mockPostService
+
+        when: "Controller is invoked"
+        def result = controller.addPost("joe_cool", "Posting up a strom")
+
+        then: "redirect to timeline, aflash message tells all is well"
+        flash.message ==~ /Added new post: Mock.*/
+        response.redirectedUrl == '/post/timeline/joe_cool'
+    }
+
+    @Unroll
+    def "Testing id of #suppliedId redirects to #expectedUrl"() {
+        given:
+        params.id = suppliedId
+
+        when:
+        controller.index()
+
+        then:
+        response.redirectedUrl == expectedUrl
+
+        where:
+        suppliedId | expectedUrl
+        'joe_cool' | '/post/timeline/joe_cool'
+        null       | '/post/timeline/chuck_norris'
     }
 }

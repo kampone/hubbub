@@ -66,4 +66,5 @@ class PostIntegrationSpec extends Specification {
         1 == groovyPost.tags.size()
         2 == bothPost.tags.size()
     }
+
 }
