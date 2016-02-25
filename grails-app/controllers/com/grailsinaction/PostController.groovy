@@ -1,5 +1,7 @@
 package com.grailsinaction
 
+import grails.web.RequestParameter
+
 class PostController {
     static defaultAction = "timeline"
     static scaffold = true
@@ -18,13 +20,15 @@ class PostController {
     def timeline(String id) {
         def user = User.findByLoginId(id)
         if(!user){
+            log.error('User ${id} is not found')
             response.sendError(NOT_FOUND)
         }else {
             [user : user]
         }
     }
 
-    def addPost(String id, String content) {
+    def addPost(@RequestParameter('frm_id') String id,
+                @RequestParameter('frm_content') String content) {
         try {
             def newPost = postService.createPost(id, content)
             flash.message = "Added new post: ${newPost.content}"
