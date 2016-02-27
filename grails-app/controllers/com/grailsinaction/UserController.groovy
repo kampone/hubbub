@@ -15,7 +15,7 @@ class UserController {
     def update() {
         def user = session.user?.attach()
         if (user){
-            user.properties = params
+            user.properties['email', 'fullName'] = params
             if(user.save()){
                 flash.message = "Successfully update user"
             } else {
@@ -24,6 +24,20 @@ class UserController {
             [user:user]
         } else {
             response.sendError(404)
+        }
+    }
+
+    def register() {
+        if (request.method == "POST"){
+            def user = new User(params)
+            if (user.validate()){
+                user.save()
+                flash.message = "Successfully Created User"
+                redirect(uri: '/')
+            } else{
+                flash.message = "Error Registering User"
+                return [user:user]
+            }
         }
     }
 
