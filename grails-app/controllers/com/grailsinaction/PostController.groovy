@@ -6,7 +6,7 @@ class PostController {
     static defaultAction = "timeline"
     static scaffold = true
     static final NOT_FOUND = 404
-    static final DEFAULT_USER = "chuck_norris"
+    static final DEFAULT_USER = "admin"
 
     def postService
 
