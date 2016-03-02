@@ -27,8 +27,8 @@ class PostController {
         }
     }
 
-    def addPost(@RequestParameter('frm_id') String id,
-                @RequestParameter('frm_content') String content) {
+    def addPost(@RequestParameter('id') String id,
+                @RequestParameter('content') String content) {
         try {
             def newPost = postService.createPost(id, content)
             flash.message = "Added new post: ${newPost.content}"

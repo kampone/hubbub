@@ -7,7 +7,7 @@ class UrlMappings {
                 // apply constraints here
             }
         }
-        "/"(controller: "post", action: 'timeline', id: user)
+        "/"(view: "post/show")
         "500"(view:'/error')
 	}
 }
