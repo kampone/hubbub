@@ -68,4 +68,5 @@ class PostControllerSpec extends Specification {
         'joe_cool' | '/post/timeline/joe_cool'
         null       | '/post/timeline/chuck_norris'
     }
+
 }

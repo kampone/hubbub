@@ -34,7 +34,7 @@
                 <g:textArea name="profile.bio" value="${user?.profile?.bio}"/>
             </div>
             <div class="fieldcontain required">
-                <label for="profile.email">Login ID:</label>
+                <label for="profile.email">E-mail:</label>
                 <g:textField name="profile.email" value="${user?.profile?.email}"/>
             </div>
         </fieldset>
