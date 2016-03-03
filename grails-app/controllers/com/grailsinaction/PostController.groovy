@@ -1,6 +1,8 @@
 package com.grailsinaction
 
 import grails.web.RequestParameter
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 
 class PostController {
     static defaultAction = "timeline"
@@ -36,5 +38,15 @@ class PostController {
             flash.message = pe.message
         }
         redirect(action: 'timeline', id: id)
+    }
+
+    def delete(Long id){
+        def post = Post.findById(id)
+        if (post?.delete()){
+            redirect(action: 'index')
+        }else {
+            redirect(action: 'index')
+            flash.message = "Can't delete post:" + post?.toString()
+        }
     }
 }

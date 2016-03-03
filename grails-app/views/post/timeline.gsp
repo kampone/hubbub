@@ -29,6 +29,9 @@
     </div>
     <div id="allPosts">
         <g:each in="${user.posts}" var="post">
+                <h6 align="right">
+                    <g:link action="delete" params="[id: post.id]" >x</g:link>
+                </h6>
             <div class="postEntry">
                 ${post.content}
             </div>
